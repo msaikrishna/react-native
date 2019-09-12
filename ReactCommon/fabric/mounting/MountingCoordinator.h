@@ -12,10 +12,6 @@
 #include <react/mounting/MountingTransaction.h>
 #include <react/mounting/ShadowTreeRevision.h>
 
-#ifndef NDEBUG
-#define RN_SHADOW_TREE_INTROSPECTION
-#endif
-
 #ifdef RN_SHADOW_TREE_INTROSPECTION
 #include <react/mounting/stubs.h>
 #endif
@@ -63,6 +59,15 @@ class MountingCoordinator final {
    * Methods from this section are meant to be used by `ShadowTree` only.
    */
   void push(ShadowTreeRevision &&revision) const;
+
+  /*
+   * Revokes the last pushed `ShadowTreeRevision`.
+   * Generating a `MountingTransaction` requires some resources which the
+   * `MountingCoordinator` does not own (e.g. `ComponentDescriptor`s). Revoking
+   * committed revisions allows the owner (a Shadow Tree) to make sure that
+   * those resources will not be accessed (e.g. by the Mouting Layer).
+   */
+  void revoke() const;
 
  private:
   SurfaceId const surfaceId_;

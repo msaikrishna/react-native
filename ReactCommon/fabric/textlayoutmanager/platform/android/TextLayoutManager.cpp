@@ -27,13 +27,13 @@ Size TextLayoutManager::measure(
     ParagraphAttributes paragraphAttributes,
     LayoutConstraints layoutConstraints) const {
   const jni::global_ref<jobject> &fabricUIManager =
-      contextContainer_->getInstance<jni::global_ref<jobject>>(
-          "FabricUIManager");
+      contextContainer_->at<jni::global_ref<jobject>>("FabricUIManager");
 
   static auto measure =
       jni::findClassStatic("com/facebook/react/fabric/FabricUIManager")
           ->getMethod<jlong(
               jstring,
+              ReadableMap::javaobject,
               ReadableMap::javaobject,
               ReadableMap::javaobject,
               jfloat,
@@ -59,6 +59,7 @@ Size TextLayoutManager::measure(
       componentName.get(),
       attributedStringRM.get(),
       paragraphAttributesRM.get(),
+      nullptr,
       minimumSize.width,
       maximumSize.width,
       minimumSize.height,

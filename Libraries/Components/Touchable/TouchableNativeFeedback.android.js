@@ -11,8 +11,8 @@
 'use strict';
 
 const Platform = require('../../Utilities/Platform');
-const React = require('react');
 const PropTypes = require('prop-types');
+const React = require('react');
 const ReactNative = require('../../Renderer/shims/ReactNative');
 const Touchable = require('./Touchable');
 const TouchableWithoutFeedback = require('./TouchableWithoutFeedback');
@@ -313,7 +313,9 @@ const TouchableNativeFeedback = createReactClass({
       accessible: this.props.accessible !== false,
       accessibilityLabel: this.props.accessibilityLabel,
       accessibilityRole: this.props.accessibilityRole,
-      accessibilityStates: this.props.accessibilityStates,
+      accessibilityState: this.props.accessibilityState,
+      accessibilityActions: this.props.accessibilityActions,
+      onAccessibilityAction: this.props.onAccessibilityAction,
       children,
       testID: this.props.testID,
       onLayout: this.props.onLayout,
@@ -325,8 +327,8 @@ const TouchableNativeFeedback = createReactClass({
       nextFocusRight: this.props.nextFocusRight,
       nextFocusUp: this.props.nextFocusUp,
       hasTVPreferredFocus: this.props.hasTVPreferredFocus,
-      clickable:
-        this.props.clickable !== false &&
+      focusable:
+        this.props.focusable !== false &&
         this.props.onPress !== undefined &&
         !this.props.disabled,
       onClick: this.touchableHandlePress,
@@ -346,4 +348,4 @@ const TouchableNativeFeedback = createReactClass({
   },
 });
 
-module.exports = TouchableNativeFeedback;
+module.exports = (TouchableNativeFeedback: $FlowFixMe);

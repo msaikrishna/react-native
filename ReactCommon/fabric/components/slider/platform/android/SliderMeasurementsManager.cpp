@@ -26,13 +26,13 @@ Size SliderMeasurementsManager::measure(
   }
 
   const jni::global_ref<jobject> &fabricUIManager =
-      contextContainer_->getInstance<jni::global_ref<jobject>>(
-          "FabricUIManager");
+      contextContainer_->at<jni::global_ref<jobject>>("FabricUIManager");
 
   static auto measure =
       jni::findClassStatic("com/facebook/react/fabric/FabricUIManager")
           ->getMethod<jlong(
               jstring,
+              ReadableMap::javaobject,
               ReadableMap::javaobject,
               ReadableMap::javaobject,
               jfloat,
@@ -48,6 +48,7 @@ Size SliderMeasurementsManager::measure(
   auto measurement = yogaMeassureToSize(measure(
       fabricUIManager,
       componentName.get(),
+      nullptr,
       nullptr,
       nullptr,
       minimumSize.width,
